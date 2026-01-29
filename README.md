@@ -85,12 +85,12 @@ pytest tests/ -v
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           HD FlexLine workflow                                │
+│                           HD FlexLine workflow                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 
-  ┌──────────────────┐     TCP/IP      ┌─────────────────────┐
-  │  Python (main)   │ ◄──────────────► │  Keithley 2450       │
-  │  tps_measurement │                  │  flexline_script.tsp │
+  ┌──────────────────┐     TCP/IP       ┌─────────────────────┐
+  │  Python (main)   │ ◄──────────────► │  Keithley 2450      │
+  │  tps_measurement │                  │  flexline_script.tsp│
   └────────┬─────────┘                  └─────────────────────┘
            │
            │ 1. Parse TSP params, connect, load script
@@ -114,11 +114,11 @@ pytest tests/ -v
            │ 6. HotDisk: EXP:OPEN SERVER_PATH/Result_*.hotb
            │ 7. EXP:TRANS?, EXP:DRIFT?, CALC:EXE FINE, EXPORT *.xlsx
            ▼
-  ┌──────────────────┐     TCP/IP      ┌─────────────────────┐
+  ┌─────────────────--┐     TCP/IP       ┌─────────────────────┐
   │  Python           │ ◄──────────────► │  HotDisk software   │
-  │  calcuration      │   :50000        │  (open file, calc,  │
+  │  calcuration      │   :50000         │  (open file, calc,  │
   │  send_visa_command│                  │   export Excel)     │
-  └────────┬─────────┘                  └─────────────────────┘
+  └────────┬─────────-┘                  └─────────────────────┘
            │
            │ 8. Optional: create_graphs() from responses
            ▼
