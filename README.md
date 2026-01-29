@@ -41,23 +41,12 @@ Create a `.env` file in the project root (copy from `.env.example` if present). 
 | `CLIENT_PATH_TO_RESULT_FILE`| Yes      | Local/shared folder where result `.hotb` is copied (e.g. `/Volumes/ShareNoBackup/Bitnoori/` or `Z:/Bitnoori/`) |
 | `CLIENT_IP`                 | No       | Optional client identifier |
 
-**Example `.env`:**
-
-```env
-TPS_IP=192.168.169.97
-SCRIPT_NAME=myworkers
-HOTDISK_IP=192.168.169.96
-HOTDISK_PORT=50000
-SERVER_PATH=Z:/Bitnoori/
-CLIENT_PATH_TO_RESULT_FILE=/Volumes/ShareNoBackup/Bitnoori/
-CLIENT_IP=192.168.1.100
-```
 
 ---
 
 ## How to start
 
-### Full pipeline (measurement → copy → HotDisk)
+### Full pipeline (measurement → send measurement result file to server → HotDisk software → send calculation result file to server)
 
 ```bash
 python main.py
@@ -78,10 +67,10 @@ If HotDisk connection or file open fails, the program exits with code 1.
 python test_main.py --tps
 
 # Copy a .hotb file to CLIENT_PATH only
-python test_main.py --send-result path/to/measurement_results_20250129_120000.hotb
+python test_main.py --send-result {filepath}
 
 # HotDisk only (open file and run commands; HotDisk must be running)
-python test_main.py --calcuration Result_20250129_120000.hotb
+python test_main.py --calcuration {filename}
 ```
 
 ### Run tests
