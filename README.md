@@ -40,7 +40,7 @@ Create a `.env` file in the project root (copy from `.env.example` if present). 
 | `SERVER_PATH`               | Yes      | Path where HotDisk opens `.hotb` and exports (e.g. `Z:/Bitnoori/`). Must be valid on the HotDisk machine. |
 | `CLIENT_PATH_TO_RESULT_FILE`| Yes      | Local/shared folder where result `.hotb` is copied (e.g. `/Volumes/ShareNoBackup/Bitnoori/` or `Z:/Bitnoori/`) |
 | `CLIENT_IP`                 | No       | Optional client identifier |
-
+| `SCRIPT_NAME`               | No       | TSP script name loaded on instrument (e.g. `myworkers`) |
 
 ---
 
@@ -149,7 +149,6 @@ HD_FlexLine/
 ├── main.py              # Entry: run_tps_measurement → send_result_file → run_calcuration
 ├── tps_measurement.py    # Keithley connect, TSP load, parse params, generate .hotb
 ├── calcuration.py        # HotDisk VISA commands, graphs; HotDiskError on failure
-├── parameters.py         # experiment_parameters (overrides for TSP / .hotb)
 ├── flexline_script.tsp   # TSP script for Keithley (measurement logic)
 ├── test_main.py          # CLI to test TPS / send-result / calcuration separately
 ├── tests/                # Pytest tests

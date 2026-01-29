@@ -6,7 +6,7 @@ import time
 import traceback
 from datetime import datetime
 from dotenv import load_dotenv
-from parameters import experiment_parameters
+from parameters import experiment_parameters as params
 
 from tps_measurement import (
     connect_to_instrument,
@@ -25,31 +25,13 @@ SCRIPT_NAME = os.getenv("SCRIPT_NAME")
 TSP_FILE = "flexline_script.tsp"
 SERVER_PATH = os.getenv("SERVER_PATH")
 CLIENT_PATH = os.getenv("CLIENT_PATH_TO_RESULT_FILE")
-NUM_ITERATIONS = experiment_parameters["NUM_ITERATIONS"]
+NUM_ITERATIONS = params["NUM_ITERATIONS"]
 
 def run_tps_measurement():
     print("TPS Measurement")
     print("=" * 60)
 
     try:
-        print(f"\nParsing TSP parameters from {TSP_FILE}...")
-        params = parse_tsp_parameters(TSP_FILE)
-
-        print("\nApplying parameter overrides...")
-        overrides_applied = []
-        for key, value in experiment_parameters.items():
-            if value is not None:
-                old_value = params.get(key, "N/A")
-                params[key] = value
-                overrides_applied.append(f"  - {key}: {old_value} → {value}")
-
-        if overrides_applied:
-            print(f"✓ Overridden {len(overrides_applied)} parameters:")
-            for override in overrides_applied:
-                print(override)
-        else:
-            print("✓ No overrides specified, using TSP file defaults")
-
         measurement_time_per_point = params["NPLC"] / params["PowerLineFrequency"]
         params["measurement_delay"] = (
             params["HeatingTime"] / (params["measurement_points"] - 1)
@@ -57,7 +39,7 @@ def run_tps_measurement():
             - params["TRIGGER_OVERHEAD"]
         )
 
-        print("\n✓ Final parameters:")
+        print("\n✓ Measurement parameters:")
         print(f"  - HeatingPower: {params['HeatingPower']} W")
         print(f"  - HeatingTime: {params['HeatingTime']} s")
         print(f"  - NPLC: {params['NPLC']}")
